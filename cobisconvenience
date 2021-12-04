@@ -1,0 +1,100 @@
+package com.company;
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class Main {
+
+    public static void main(String[] args) {
+        // write your code here
+        ArrayList<String> products = new ArrayList<String>();
+        ArrayList<Double> prices = new ArrayList<Double>();
+        ArrayList<String> customitem = new ArrayList<String>();
+        ArrayList<Integer> customitem_quantity = new ArrayList<Integer>();
+
+        Scanner Input = new Scanner(System.in);
+        String input;
+
+        String result = "";
+        double ordertotal;
+        double grandtotal = 0;
+
+        products.add("Red-Hot Spicy Doritos");
+        prices.add(2.99);
+
+        products.add("Cool Ranch Doritos");
+        prices.add(2.99);
+
+        products.add("Coke");
+        prices.add(0.99);
+
+        products.add("Diet Coke");
+        prices.add(0.99);
+
+        products.add("Pepsi");
+        prices.add(0.99);
+
+        products.add("Five Hour Energy");
+        prices.add(3.99);
+
+        products.add("Sunflower Seeds");
+        prices.add(0.99);
+
+        products.add("Peanuts");
+        prices.add(0.99);
+
+        products.add("Macbook Chargers");
+        prices.add(120.00);
+
+        products.add("Dell Chargers");
+        prices.add(50.00);
+
+        System.out.println("Welcome to COBIS Convenience Store!");
+        System.out.println("Here are the items that we offer: ");
+        System.out.println("Red-Hot Spicy Doritos" + "\n" +
+                "Cool Ranch Doritos" + "\n" +
+                "Coke" + "\n" +
+                "Diet Coke" + "\n" +
+                "Pepsi" + "\n" +
+                "Five Hour Energy" + "\n" +
+                "Sunflower Seeds" + "\n" +
+                "Peanuts" + "\n" +
+                "Macbook Chargers" + "\n" +
+                "Dell Chargers");
+
+        System.out.println("Please enter the customer's name (Type 'No' when done): ");
+        while (!(input = Input.nextLine()).equalsIgnoreCase("No")) {
+            // += means addition to String 
+            result += "\n" + input;
+            ordertotal = 0; // makes sure all customers start at 0
+
+            System.out.println("Please enter the names of the items (Type 'Done' when done): ");
+            while (!(input = Input.nextLine()).equalsIgnoreCase("Done"))
+            // : means inside
+            { for (String i :products) {
+                    if (i.contains(input) || i.equalsIgnoreCase(input)) {
+                        ordertotal += prices.get(products.indexOf(i));
+                        result += "\n" + input;
+
+                        if (!customitem.contains(input)) {
+                            customitem.add(input);
+                            customitem_quantity.add(1);
+                        } else {
+                            int index = customitem.indexOf(input);
+                            customitem_quantity.set(index, customitem_quantity.get(index) + 1);
+                        }
+                    }
+                }
+            }
+            result += "\n" + ordertotal + "\n";
+            grandtotal += ordertotal;
+            System.out.println("\n Please Enter the name of the next customer (Type 'No' when done): ");
+        }
+        System.out.println("Receipt: \n" + result);
+        System.out.println("\n Items Sold: ");
+
+        for (String i : customitem) {
+            System.out.println("\t" + i + "(" + customitem_quantity.get(customitem.indexOf(i)) + ")");
+        }
+        System.out.println("\n Grand Total: " + Math.round(grandtotal));
+    }
+}
